@@ -1,31 +1,43 @@
-.board{
-    width: 500px;
+body{
+    font-family: Source Sans Pro,sans-serif;
+    font-size: 25px;
+}
+.table{
+     width: 500px;
     height: 500px;
     margin: auto;
+}
+td{
+    padding: 0px;
+}
+.board{
+    width: 536px;
+    height: 540px;
     display: grid;
-    grid-template-columns: repeat(9,11.1711%);
-    grid-template-rows: repeat(9,11.1511%);
-    border:5px solid black;
+    grid-template-columns: repeat(9,60px);
+    grid-template-rows: repeat(9,60px);
+    border:5px solid #344861;
 }
 .cell input{
     height: 100%;
     width: 100%;
-    font-size: 20px;
+   font-size: 25px;
     padding: 6px;
     text-align: center;
    outline: none;
-   border:1px solid black;
+   
+   border:1px solid #bec6d4;
    background-color: transparent;
 }
 .cell:nth-child(3n){
-    border-right: 3px solid black;
+    border-right: 3px solid #344861;
 }
 .thick{
-    border-bottom:3px solid black ;
+    border-bottom:3px solid #344861 ;
 }
 
 .disabled{
-    background-color: bisque;
+    background-color: rgba(211, 211, 211, 0.308);
     
 }
 input[name=disable]{
@@ -33,4 +45,7 @@ input[name=disable]{
 }
 .wrong{
     background-color: red;;
+}
+.glow{
+    background-color: rgba(135, 207, 235, 0.13);
 }
