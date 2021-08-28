@@ -1,0 +1,36 @@
+.board{
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(9,11.1711%);
+    grid-template-rows: repeat(9,11.1511%);
+    border:5px solid black;
+}
+.cell input{
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    padding: 6px;
+    text-align: center;
+   outline: none;
+   border:1px solid black;
+   background-color: transparent;
+}
+.cell:nth-child(3n){
+    border-right: 3px solid black;
+}
+.thick{
+    border-bottom:3px solid black ;
+}
+
+.disabled{
+    background-color: bisque;
+    
+}
+input[name=disable]{
+    pointer-events: none;
+}
+.wrong{
+    background-color: red;;
+}
