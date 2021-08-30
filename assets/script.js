@@ -1,4 +1,5 @@
 var lvl=[]
+var curlvl='null'
  var old=0;
 var wrong=[]
 var glowedr=[];
@@ -8,8 +9,10 @@ let ivalue=0;
 var selected=0;
 var oldtobe=0;
 function validate(i){
+  
   let tobecorrected=document.querySelector(`#cell-${i} input`).value 
  // console.log(`tobe=${tobecorrected}`)
+
   if(tobecorrected<10 && tobecorrected>0){
     oldtobe=tobecorrected;
    
@@ -19,7 +22,7 @@ function validate(i){
    if(oldtobe!=0&&tobecorrected!=""&&tobecorrected>9){
     document.querySelector(`#cell-${i} input`).value=oldtobe;
   }
-  
+  localStorage.setItem(`${curlvl}${i}`,JSON.stringify(document.querySelector(`#cell-${i} input`).value))
     document.querySelector(`#cell-${i}`).classList.add("selected")
     if(selected!=0 && selected!=i)
     document.querySelector(`#cell-${selected}`).classList.remove("selected")
@@ -28,16 +31,25 @@ function validate(i){
     lvl[i-1]="-1"
     else
     lvl[i-1]=document.querySelector(`#cell-${i} input`).value 
+
+  // for(let h in lvl){
+  //   let g=Number(h)+1;
+  //   // curlvl=JSON.parse(localStorage.getItem("level"))
+    
+  // }
+
+
  for(let j in lvl){
- 
-   let k=Number(j)+1;
+    let k=Number(j)+1;
     ivalue=document.querySelector(`#cell-${i} input`).value
     //console.log(`ivalue=${ivalue}`)
    if(lvl[j]!=0 && lvl[j]==ivalue)
-   document.querySelector(`#cell-${k}`).classList.add("same")
+     document.querySelector(`#cell-${k}`).classList.add("same")
    if(old!=0&&old!=ivalue)
-   removesame(old)
-   }console.log(lvl)
+     removesame(old)
+   }
+
+   console.log(lvl)
    console.log(old)
     old=ivalue;
     if (old=="")
@@ -53,15 +65,28 @@ function validate(i){
     
 }
 function validat(){
-  console.log(lvl.length)                      
-  // &&!lvl.includes("-1") &&!lvl.includes(0)
+  console.log(lvl)                      
+  // 
   console.log(wrong.length)
-if(wrong.length==0 && lvl.length==81 ){
-// document.getElementById("won").innerText="You won!!";
+if(wrong.length==0 && lvl.length==81 &&!lvl.includes("-1") &&!lvl.includes(0)){
+document.getElementById("won").innerText="You won!!";
 //document.getElementById("play").classList.add("fadeout")
 document.getElementById("play").classList.toggle("hide")
 document.getElementById("won").classList.toggle("hide")
 document.getElementById("won").classList.toggle("fadein")
+}
+else if(wrong.length!=0 && lvl.length==81 ){
+  document.getElementById("won").innerText="Something wrong !!";
+  document.getElementById("play").classList.toggle("hide")
+document.getElementById("won").classList.toggle("hide")
+document.getElementById("won").classList.toggle("fadein")
+}
+else if(lvl.length==81){
+  document.getElementById("won").innerText="Complete it!!";
+  document.getElementById("play").classList.toggle("hide")
+document.getElementById("won").classList.toggle("hide")
+document.getElementById("won").classList.toggle("fadein")
+console.log(lvl.length)
 }}
 function removesame(val){
  
@@ -291,24 +316,38 @@ for(let j=0;j<wrong.length;j=j+2){
           }
         }
 
+
+        const easylvl=[
+          [0, 3, 0, 6, 7, 8, 9, 0, 2],
+          [6, 7, 2, 1, 0, 0, 3, 4, 0],
+          [1, 0, 0, 3, 4, 2, 5, 6, 0],
+          [0, 5, 9, 7, 0, 1, 0, 2, 0],
+          [4, 0, 6, 0, 5, 0, 7, 9, 1],
+          [0, 0, 3, 9, 2, 0, 8, 5, 6],
+          [9, 0, 1, 5, 0, 0, 2, 0, 4],
+          [2, 8, 7, 0, 1, 9, 6, 3, 5],
+          [3, 0, 0, 0, 8, 0, 1, 7, 0]
+        ]
+      let easy=[]
+      for(i in easylvl){
+         // console.log(easylvl[i])
+           easy=[...easy,...easylvl[i]]
+      }
+     
 function setupeasy(){
-  const easylvl=[
-    [0, 3, 0, 6, 7, 8, 9, 0, 2],
-    [6, 7, 2, 1, 0, 0, 3, 4, 0],
-    [1, 0, 0, 3, 4, 2, 5, 6, 0],
-    [0, 5, 9, 7, 0, 1, 0, 2, 0],
-    [4, 0, 6, 0, 5, 0, 7, 9, 1],
-    [0, 0, 3, 9, 2, 0, 8, 5, 6],
-    [9, 0, 1, 5, 0, 0, 2, 0, 4],
-    [2, 8, 7, 0, 1, 9, 6, 3, 5],
-    [3, 0, 0, 0, 8, 0, 1, 7, 0]
-  ]
-var easy=[]
-for(i in easylvl){
-   // console.log(easylvl[i])
-     easy=[...easy,...easylvl[i]]
+  document.getElementById("no").classList.remove("hide")
+  document.getElementsByClassName("buttonflex2")[0].setAttribute("id","buttons2")
+  document.getElementsByClassName("buttonflex2")[0].classList.remove("hide")
+  document.getElementsByClassName("button3")[0].classList.add("hide")
+  lvl=[...easy];
+  for(let i=1;i<=81;i++){
+    document.querySelector(`#cell-${i} input`).removeAttribute("type")
+document.querySelector(`#cell-${i} input`).setAttribute("type","number")
+
+localStorage.setItem("level",JSON.stringify("easy"))
+curlvl="easy"
 }
-lvl=easy;
+  
 //console.log(easy)
 for(let i in easy){
     
@@ -325,35 +364,71 @@ for(let i in easy){
     else{
        // console.log(document.querySelector(`#cell-${j} input`))
    document.querySelector(`#cell-${j} input`).value=easy[i]
+   localStorage.setItem(`easy${j}`,JSON.stringify(easy[i]))
  //  document.querySelector(`#cell-${j} input`).setAttribute("name","disable")
    document.querySelector(`#cell-${j}`).classList.add("disabled")
    document.querySelector(`#cell-${j} input`).disabled =true;
 }}}
-
-function setupmed(){
-  const medlvl=[
-    [0, 3, 0, 6, 0, 8, 9, 0, 2],
-    [6, 0, 2, 1, 0, 0, 3, 4, 0],
-    [1, 0, 0, 3, 0, 2, 0, 6, 0],
-    [0, 5, 0, 7, 0, 1, 0, 2, 0],
-    [4, 0, 6, 0, 5, 0, 0, 0, 1],
-    [0, 0, 3, 0, 2, 0, 8, 0, 6],
-    [0, 0, 1, 5, 0, 0, 2, 0, 4],
-    [2, 8, 7, 0, 1, 0, 0, 0, 5],
-    [3, 0, 0, 0, 8, 0, 0, 7, 0]
-  ]
+function localeasy(){
+  console.log(`easy ${easy}`)
+  for(let i in easy){
+    
+    // console.log(i);
+     var j=Number(i)+1;
+     document.querySelector(`#cell-${j}`).classList.remove("same")
+     document.querySelector(`#cell-${j}`).classList.remove("wrong")
+    // console.log(j);
+     if(easy[i]=='0')
+     {document.querySelector(`#cell-${j} input`).value=""
+     document.querySelector(`#cell-${j}`).classList.remove("disabled")
+     document.querySelector(`#cell-${j} input`).disabled =false;
+   
+   }
+     else{
+        // console.log(document.querySelector(`#cell-${j} input`))
+    document.querySelector(`#cell-${j} input`).value=easy[i]
+    localStorage.setItem(`easy${j}`,JSON.stringify(easy[i]))
+  //  document.querySelector(`#cell-${j} input`).setAttribute("name","disable")
+    document.querySelector(`#cell-${j}`).classList.add("disabled")
+    document.querySelector(`#cell-${j} input`).disabled =true;
+ }}
+}
+const medlvl=[
+  [0, 3, 0, 6, 0, 8, 9, 0, 2],
+  [6, 0, 2, 1, 0, 0, 3, 4, 0],
+  [1, 0, 0, 3, 0, 2, 0, 6, 0],
+  [0, 5, 0, 7, 0, 1, 0, 2, 0],
+  [4, 0, 6, 0, 5, 0, 0, 0, 1],
+  [0, 0, 3, 0, 2, 0, 8, 0, 6],
+  [0, 0, 1, 5, 0, 0, 2, 0, 4],
+  [2, 8, 7, 0, 1, 0, 0, 0, 5],
+  [3, 0, 0, 0, 8, 0, 0, 7, 0]
+]
 var med=[]
 for(i in medlvl){
-   // console.log(easylvl[i])
-     med=[...med,...medlvl[i]]
+ // console.log(easylvl[i])
+   med=[...med,...medlvl[i]]
 }
-lvl=med;
+function setupmed(){
+  document.getElementById("no").classList.remove("hide")
+  document.getElementsByClassName("buttonflex2")[0].setAttribute("id","buttons2")
+  document.getElementsByClassName("buttonflex2")[0].classList.remove("hide")
+  document.getElementsByClassName("button3")[0].classList.add("hide")
+  for(let i=1;i<=81;i++){
+    document.querySelector(`#cell-${i} input`).removeAttribute("type")
+document.querySelector(`#cell-${i} input`).setAttribute("type","number")
+localStorage.setItem("level",JSON.stringify("med"))
+curlvl="med" 
+}
+  
+lvl=[...med];
 //console.log(easy)
 for(let i in med){
     
    // console.log(i);
     var j=Number(i)+1;
     document.querySelector(`#cell-${j}`).classList.remove("same")
+    document.querySelector(`#cell-${j}`).classList.remove("wrong")
    // console.log(j);
     if(med[i]=='0')
     {document.querySelector(`#cell-${j} input`).value=""
@@ -364,36 +439,69 @@ for(let i in med){
     else{
        // console.log(document.querySelector(`#cell-${j} input`))
    document.querySelector(`#cell-${j} input`).value=med[i]
+   localStorage.setItem(`med${j}`,JSON.stringify(med[i]))
  //  document.querySelector(`#cell-${j} input`).setAttribute("name","disable")
    document.querySelector(`#cell-${j}`).classList.add("disabled")
    document.querySelector(`#cell-${j} input`).disabled =true;
 }}}
-
-
-function setuphard(){
-  const hardlvl=[
-    [0, 0, 7,9 ,3, 0, 0, 0, 8],
-    [6, 8, 0, 0, 0, 5, 1, 9, 0],
-    [0, 0, 5, 6, 0, 0, 0, 0, 2],
-    [0, 0, 0, 4, 0, 0, 0, 8, 0],
-    [5, 9, 0, 1, 2, 6, 0, 3, 0],
-    [0, 6, 0, 0, 0, 0, 0, 0, 9],
-    [0, 7, 1, 3, 5, 4, 0, 2, 0],
-    [0, 0, 9, 7, 0, 0, 0, 5, 1],
-    [0, 0, 0, 0, 1, 0, 0, 7, 0]
-  ]
+function localmed(){
+  for(let i in med){
+    
+    // console.log(i);
+     var j=Number(i)+1;
+     document.querySelector(`#cell-${j}`).classList.remove("same")
+    // console.log(j);
+     if(med[i]=='0')
+     {document.querySelector(`#cell-${j} input`).value=""
+     document.querySelector(`#cell-${j}`).classList.remove("disabled")
+     document.querySelector(`#cell-${j} input`).disabled =false;
+   
+   }
+     else{
+        // console.log(document.querySelector(`#cell-${j} input`))
+    document.querySelector(`#cell-${j} input`).value=med[i]
+    localStorage.setItem(`med${j}`,JSON.stringify(med[i]))
+  //  document.querySelector(`#cell-${j} input`).setAttribute("name","disable")
+    document.querySelector(`#cell-${j}`).classList.add("disabled")
+    document.querySelector(`#cell-${j} input`).disabled =true;
+ }}
+}
+const hardlvl=[
+  [0, 0, 7,9 ,3, 0, 0, 0, 8],
+  [6, 8, 0, 0, 0, 5, 1, 9, 0],
+  [0, 0, 5, 6, 0, 0, 0, 0, 2],
+  [0, 0, 0, 4, 0, 0, 0, 8, 0],
+  [5, 9, 0, 1, 2, 6, 0, 3, 0],
+  [0, 6, 0, 0, 0, 0, 0, 0, 9],
+  [0, 7, 1, 3, 5, 4, 0, 2, 0],
+  [0, 0, 9, 7, 0, 0, 0, 5, 1],
+  [0, 0, 0, 0, 1, 0, 0, 7, 0]
+]
 var hard=[]
 for(i in hardlvl){
-   // console.log(easylvl[i])
-     hard=[...hard,...hardlvl[i]]
+ // console.log(easylvl[i])
+   hard=[...hard,...hardlvl[i]]
 }
-lvl=hard;
+function setuphard(){
+  document.getElementById("no").classList.remove("hide")
+  document.getElementsByClassName("buttonflex2")[0].setAttribute("id","buttons2")
+  document.getElementsByClassName("buttonflex2")[0].classList.remove("hide")
+  document.getElementsByClassName("button3")[0].classList.add("hide")
+  for(let i=1;i<=81;i++){
+    document.querySelector(`#cell-${i} input`).removeAttribute("type")
+document.querySelector(`#cell-${i} input`).setAttribute("type","number")
+localStorage.setItem("level",JSON.stringify("hard"))
+curlvl="hard" 
+}
+  
+lvl=[...hard];
 //console.log(easy)
 for(let i in hard){
     
    // console.log(i);
     var j=Number(i)+1;
     document.querySelector(`#cell-${j}`).classList.remove("same")
+    document.querySelector(`#cell-${j}`).classList.remove("wrong")
    // console.log(j);
     if(hard[i]=='0')
     {document.querySelector(`#cell-${j} input`).value=""
@@ -404,16 +512,67 @@ for(let i in hard){
     else{
        // console.log(document.querySelector(`#cell-${j} input`))
    document.querySelector(`#cell-${j} input`).value=hard[i]
+   localStorage.setItem(`hard${j}`,JSON.stringify(hard[i]))
  //  document.querySelector(`#cell-${j} input`).setAttribute("name","disable")
    document.querySelector(`#cell-${j}`).classList.add("disabled")
    document.querySelector(`#cell-${j} input`).disabled =true;
 }}}
-
+function localhard(){
+  for(let i in hard){
+    
+    // console.log(i);
+     var j=Number(i)+1;
+     document.querySelector(`#cell-${j}`).classList.remove("same")
+    // console.log(j);
+     if(hard[i]=='0')
+     {document.querySelector(`#cell-${j} input`).value=""
+     document.querySelector(`#cell-${j}`).classList.remove("disabled")
+     document.querySelector(`#cell-${j} input`).disabled =false;
+   
+   }
+     else{
+        // console.log(document.querySelector(`#cell-${j} input`))
+    document.querySelector(`#cell-${j} input`).value=hard[i]
+    localStorage.setItem(`hard${j}`,JSON.stringify(hard[i]))
+  //  document.querySelector(`#cell-${j} input`).setAttribute("name","disable")
+    document.querySelector(`#cell-${j}`).classList.add("disabled")
+    document.querySelector(`#cell-${j} input`).disabled =true;
+ }}
+}
+function continuee(){
+  document.getElementById("no").classList.add("hide")
+  document.getElementsByClassName("buttonflex2")[0].setAttribute("id","buttons2")
+  document.getElementsByClassName("buttonflex2")[0].classList.remove("hide")
+  document.getElementsByClassName("button3")[0].classList.add("hide")
+  curlvl=JSON.parse(localStorage.getItem(`level`))
+  if(curlvl=="easy"){
+    localeasy()
+  }
+  else if(curlvl=="med"){
+    localmed()
+  }
+  else if(curlvl=="hard"){
+    localhard()
+  }
+  // 
+   for(let i=1;i<=81;i++)
+   {console.log(JSON.parse(localStorage.getItem(`${curlvl}${i}`)))
+   console.log(curlvl)
+   let storagevalue=JSON.parse(localStorage.getItem(`${curlvl}${i}`))
+   if(storagevalue!=0&&storagevalue!="-1")
+   document.querySelector(`#cell-${i} input`).value=storagevalue;
+}}
+function no(){
+  for(let i=1;i<=81;i++){
+    localStorage.removeItem(`${curlvl}${i}`)
+  }
+  document.getElementById("no").classList.add("hide")
+}
 
 for(let i=1;i<=81;i++)
 {document.querySelector(`#cell-${i} input`).addEventListener("keyup",()=>{validate(i)})
 document.querySelector(`#cell-${i} input`).addEventListener("focus",()=>{validate(i)})
-//document.querySelector(`#cell-${i} input`).setAttribute("type","number")
+
 //document.querySelector(`#cell-${i} input`).setAttribute("max","9")
 //document.querySelector(`#cell-${i} input`).addEventListener("blur",()=>{removesame(i)})
 document.querySelector(`#cell-${i} input`).addEventListener("focus",()=>{rowGlow(Math.floor((i-1)/9)+1)})

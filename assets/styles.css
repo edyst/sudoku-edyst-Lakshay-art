@@ -10,14 +10,90 @@ body{
     margin:20px;
     
 }
+.buttonflex2{
+    display:flex;
+    justify-content:space-around;
+
+    font-weight: bolder;
+    margin:20px;
+   /*  gap:5px; */
+    /* -webkit-animation-name: buttooonflex;
+    animation-name: buttooonflex;
+    animation-duration: 1s; */
+}
+/* @keyframes buttooonflex{
+    0%{ display:flex;
+        justify-content:center;
+        gap:10px;
+    }  
+    100%{
+        display:flex;
+        justify-content:space-around;
+        gap:0px;
+    }   
+}*/
 button{
     border: 0px;
      font-size: 25px;
+    
+}
+.button3{
+    position: absolute;
+        top: 300px;
+        left:27.3%;
+        right:28%;
+        width:43%;
+        
+}
+#no{
+    position: absolute;
+    top: 350px;
+    left:35%;
+    right:35%;
+    width:30%;
+    background-color: white;
+    border :4px solid #344861;
+    padding: 5px;
+    border-radius: 25px;
+
+} 
+#no button{
+     border :2px solid #bec6d4;
+    border-radius: 15px;
+    padding: 5px;
+}
+#buttons2{
+
+    
+    -webkit-animation-name: buttooon;
+    animation-name: buttooon;
+    animation-duration: 1s;
+    
+}
+@keyframes buttooon {
+    0%{position: relative;
+        top: 300px;
+        left:27.3%;
+        right:28%;
+        width:43%;}
+    100%{position:relative;
+          top:0px;
+         left:0px;
+         right:0px;
+         width:95%;}
+}
+
+button:focus{
+    border:1px solid skyblue;
+}
+#hiddendiv{
+    height:30px;
 }
 .table{
      width: 500px;
     height: 500px;
     margin: auto;
+   
 }
 td{
     padding: 0px;
@@ -62,7 +138,7 @@ input[name=disable]{
     background-color: rgba(135, 207, 235, 0.945);
 }
 .wrong{
-    background-color: rgb(252, 120, 120);
+    background-image: linear-gradient(skyblue,rgb(252, 120, 120)) ;
     border-color: red;
 }
 .selected{
@@ -82,10 +158,12 @@ input::-webkit-inner-spin-button{
     text-align: center;
     position: absolute;
     top: 200px;
-    left:25%;
-    right:25%;
-    width:50%
+    left:10%;
+    right:10%;
+    width:80%
 }
+
+
 .hide{
     visibility: hidden;
 }
@@ -121,8 +199,49 @@ input::-webkit-inner-spin-button{
         grid-template-rows: repeat(9,32px);
         border:5px solid #344861;
     }
-    button{
+     button{
         width: 100%;
+    }
+    /* #buttons2{
+
+        position: absolute;
+        top: 180px;
+        left:20%;
+        right:20%;
+        width:50%
+    } */
+    @keyframes buttooon {
+        0%{position: relative;
+            top: 180px;
+            left:20%;
+            right:20%;
+            width:50%;}
+        100%{position:relative;
+              top:0px;
+             left:0px;
+             right:0px;
+             width:90.8%;}
+    }
+    
+    #buttons2 button{
+        font-size: 15px;
+    }
+    .button3 button{
+        font-size: 15px;
+    }
+    #no button{
+        font-size: 15px;
+    }
+    #no{
+        position: absolute;
+        top: 230px;
+        left:30%;
+        right:30%;
+        width:40%;
+        
+    }
+    #no p{
+        font-size: 15px;
     }
     #won{
         font-size: 40px;
@@ -130,5 +249,12 @@ input::-webkit-inner-spin-button{
     }
     .cell input{
         font-size:20px
+    }
+    .button3{
+        position: absolute;
+            top: 180px;
+            left:20%;
+            right:20%;
+            width:50%;
     }
 }
