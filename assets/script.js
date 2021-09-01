@@ -335,6 +335,7 @@ for(let j=0;j<wrong.length;j=j+2){
       }
      
 function setupeasy(){
+  wrong=[]
   document.getElementById("no").classList.remove("hide")
   document.getElementsByClassName("buttonflex2")[0].setAttribute("id","buttons2")
   document.getElementsByClassName("buttonflex2")[0].classList.remove("hide")
@@ -410,6 +411,7 @@ for(i in medlvl){
    med=[...med,...medlvl[i]]
 }
 function setupmed(){
+  wrong=[]
   document.getElementById("no").classList.remove("hide")
   document.getElementsByClassName("buttonflex2")[0].setAttribute("id","buttons2")
   document.getElementsByClassName("buttonflex2")[0].classList.remove("hide")
@@ -483,6 +485,7 @@ for(i in hardlvl){
    hard=[...hard,...hardlvl[i]]
 }
 function setuphard(){
+  wrong=[]
   document.getElementById("no").classList.remove("hide")
   document.getElementsByClassName("buttonflex2")[0].setAttribute("id","buttons2")
   document.getElementsByClassName("buttonflex2")[0].classList.remove("hide")
@@ -502,6 +505,7 @@ for(let i in hard){
     var j=Number(i)+1;
     document.querySelector(`#cell-${j}`).classList.remove("same")
     document.querySelector(`#cell-${j}`).classList.remove("wrong")
+    
    // console.log(j);
     if(hard[i]=='0')
     {document.querySelector(`#cell-${j} input`).value=""
@@ -558,8 +562,11 @@ function continuee(){
    for(let i=1;i<=81;i++)
    {console.log(JSON.parse(localStorage.getItem(`${curlvl}${i}`)))
    console.log(curlvl)
+   let k=Number(i)-1
+  
    let storagevalue=JSON.parse(localStorage.getItem(`${curlvl}${i}`))
-   if(storagevalue!=0&&storagevalue!="-1")
+    lvl[k]=storagevalue
+    if(storagevalue!=0&&storagevalue!="-1")
    document.querySelector(`#cell-${i} input`).value=storagevalue;
 }}
 function no(){
